@@ -4,8 +4,11 @@ public class SinglyLinkedList<E> {
     private Node<E> tail = null;
     private int size = 0;
 
-    public SinglyLinkedList(){
-
+    public SinglyLinkedList()
+    {
+        head = null;
+        tail = null;
+        size = 0;
     }
 
     public int size(){
@@ -66,15 +69,62 @@ public class SinglyLinkedList<E> {
     }
 
     // Write your codes below
-    public String toString(){
-     
+    public String toString()
+    {
+        String output = "";
+        Node<E> current = head;
+
+        while (current != null)
+        {
+            output += current.getElement() + " ";
+            current = current.getNext();
+        }
+
+        return output;
     }
 
-    public E removeLast(){
-      
+    public E removeLast()
+    {
+        if (isEmpty())
+        {
+            return null;
+        }
+
+        E answer = tail.getElement();
+
+        if (size == 1)
+        {
+            head = null;
+            tail = null;
+        } else {
+            Node<E> current = head;
+            while (current.getNext() != tail)
+            {
+                current = current.getNext();
+            }
+            current.setNext(null);
+            tail = current;
+        }
+
+        size--;
+        return answer;
     }
 
-    public void reverse(){       
-                 
+    public void reverse()
+    {
+        Node<E> previous = null;
+        Node<E> current = head;
+        Node<E> following = null;
+
+        while (current != null)
+        {
+            following = current.getNext();
+            current.setNext(previous);
+            previous = current;
+            current = following;
+        }
+
+        tail = head;
+        head = previous;
     }
 }
